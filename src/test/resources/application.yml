@@ -1,0 +1,7 @@
+config:
+  test1:
+    thing1: hola
+    thing2: 53
+  test2:
+    thing1: adios
+    thing2: 42

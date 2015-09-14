@@ -22,6 +22,7 @@ repositories {
 dependencies {
   compile 'org.springframework:spring-beans:4.2.1.RELEASE'
   compile 'org.springframework:spring-context:4.2.1.RELEASE'
+  compile 'org.yaml:snakeyaml:1.16'
   compile 'org.projectlombok:lombok:1.16.6'
 
   testCompile 'org.springframework.boot:spring-boot:1.2.5.RELEASE'
