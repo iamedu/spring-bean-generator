@@ -7,15 +7,51 @@
  * user guide available at https://docs.gradle.org/2.6/userguide/tutorial_java_projects.html
  */
 
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.3.1'
+  }
+}
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+project.group = 'iamedu.spring'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
   // Use 'jcenter' for resolving your dependencies.
   // You can declare any Maven/Ivy/file repository here.
   jcenter()
+}
+
+bintray {
+  user = project.hasProperty('iameduBintrayUsername') ? iameduBintrayUsername : ''
+  key = project.hasProperty('iameduBintrayKey') ? iameduBintrayKey : ''
+  publications = ['mavenPublication'] 
+
+  pkg {
+    repo = 'maven'
+    userOrg = 'iamedu'
+    name = 'SpringBeanGenerator'
+  }
+}
+
+publishing {
+  publications {
+    mavenPublication(MavenPublication) {
+      from components.java
+      groupId 'iamedu.spring'
+      artifactId 'spring-bean-generator'
+      version '0.1'
+    }
+  }
 }
 
 // In this section you declare the dependencies for your production and test code
@@ -30,5 +66,5 @@ dependencies {
   testCompile 'org.springframework.boot:spring-boot-starter-test:1.2.5.RELEASE'
   testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
   testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
-
 }
+
